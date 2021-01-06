@@ -3,7 +3,7 @@ import { Socket } from "socket.io";
 import { MessageParam, SQuery } from "./typing/ChatRoom";
 require("dotenv").config();
 
-const PORT = process.env.ENV_SOCKET_PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 var app = require("express")();
 var http = require("http").Server(app);
