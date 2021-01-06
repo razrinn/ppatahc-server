@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { Socket } from "socket.io";
 import { MessageParam, SQuery } from "./typing/ChatRoom";
 require("dotenv").config();
@@ -6,25 +6,21 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 var app = require("express")();
-var cors = require("cors");
+// var cors = require("cors");
 
-const CORS_WHITE_LIST = [
-  "http://localhost:3000",
-  "http://localhost:5000",
-  "https://vigilant-babbage-eab9be.netlify.app",
-  "https://boiling-fjord-85810.herokuapp.com/",
-];
-app.use(
-  cors({
-    origin: function (origin: any, callback: any) {
-      if (CORS_WHITE_LIST.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
+app.use(function (req: Request, res: Response, next: NextFunction) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.get("/", function (req: Request, res: Response) {
   res.json({}).status(200);
