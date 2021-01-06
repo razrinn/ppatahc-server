@@ -4,11 +4,10 @@ import { MessageParam, SQuery } from "./typing/ChatRoom";
 require("dotenv").config();
 
 const PORT = process.env.ENV_SOCKET_PORT || 5000;
-const CLIENT_HOST = process.env.ENV_CLIENT_HOST || "http://localhost:3000";
 
 const io = require("socket.io")(PORT, {
   cors: {
-    origin: CLIENT_HOST,
+    origin: "*:*",
     methods: ["GET", "POST"],
   },
 });
