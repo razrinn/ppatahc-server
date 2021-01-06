@@ -1,16 +1,24 @@
+import { Request, Response } from "express";
 import { Socket } from "socket.io";
 import { MessageParam, SQuery } from "./typing/ChatRoom";
-
 require("dotenv").config();
 
 const PORT = process.env.ENV_SOCKET_PORT || 5000;
 
-const io = require("socket.io")(PORT, {
+var app = require("express")();
+var http = require("http").Server(app);
+const io = require("socket.io")(http, {
   cors: {
     origin: "*:*",
     methods: ["GET", "POST"],
   },
 });
+
+app.get("/", function (req: Request, res: Response) {
+  res.json({}).status(200);
+});
+
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 io.on("connection", (socket: Socket) => {
   const { id }: SQuery = socket.handshake.query;
