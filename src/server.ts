@@ -10,7 +10,9 @@ var cors = require("cors");
 
 const CORS_WHITE_LIST = [
   "http://localhost:3000",
+  "http://localhost:5000",
   "https://vigilant-babbage-eab9be.netlify.app",
+  "https://boiling-fjord-85810.herokuapp.com/",
 ];
 app.use(
   cors({
