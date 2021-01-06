@@ -6,7 +6,6 @@ require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 var app = require("express")();
-// var cors = require("cors");
 
 app.use(function (req: Request, res: Response, next: NextFunction) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -26,15 +25,8 @@ app.get("/", function (req: Request, res: Response) {
   res.json({}).status(200);
 });
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
 var http = require("http").Server(app);
-const io = require("socket.io")(http, {
-  cors: {
-    origin: "*:*",
-    methods: ["GET", "POST"],
-  },
-});
+const io = require("socket.io")(http);
 
 io.on("connection", (socket: Socket) => {
   const { id }: SQuery = socket.handshake.query;
@@ -53,3 +45,5 @@ io.on("connection", (socket: Socket) => {
     });
   }
 });
+
+http.listen(PORT, () => console.log(`Listening on ${PORT}`));
