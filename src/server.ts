@@ -22,7 +22,7 @@ app.use(function (req: Request, res: Response, next: NextFunction) {
 });
 
 app.get("/", function (req: Request, res: Response) {
-  res.json({}).status(200);
+  res.json({ status: 200, message: "success" }).status(200);
 });
 
 var http = require("http").Server(app);
